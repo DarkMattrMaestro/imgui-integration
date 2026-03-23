@@ -20,6 +20,7 @@ public class ImGuiManager {
     private InputProcessor tmpProcessor;
     public boolean hasBeenInitialized = false;
     public List<ImGuiWindow> windows = new ArrayList<>();
+    private List<ImGuiWindow> closedWindows = new ArrayList<>();
     public static ImGuiManager INSTANCE = new ImGuiManager();
 
     private String glslVersion;
@@ -50,7 +51,6 @@ public class ImGuiManager {
 
             // Set flags
             io.addConfigFlags(ImGuiConfigFlags.NavEnableKeyboard);
-//            io.addConfigFlags(ImGuiConfigFlags.NavEnableGamepad);
             io.addConfigFlags(ImGuiConfigFlags.DockingEnable);
             io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);
             io.setConfigWindowsResizeFromEdges(false);
@@ -76,6 +76,10 @@ public class ImGuiManager {
 
     public void render() {
         start();
+
+        windows.removeAll(closedWindows);
+        closedWindows.clear();
+
         for (ImGuiWindow window : windows) {
             if (!window.hasBeenInitialized) {
                 window.init();
@@ -85,6 +89,7 @@ public class ImGuiManager {
                 window.render();
             }
         }
+
         end();
     }
 
@@ -130,5 +135,9 @@ public class ImGuiManager {
                 window.dispose();
             }
         }
+    }
+
+    public void closeWindow(ImGuiWindow window) {
+        closedWindows.add(window);
     }
 }

@@ -4,24 +4,35 @@ Imgui Integration mod allows you to use imgui on any cosmic reach GameState
 
 ```java
 public class TestWindow extends ImGuiWindow {
+    public static final ImBoolean SHOW_WINDOW = new ImBoolean(true);
+
     int[] test = new int[1];
+
     @Override
     public void init() {
-        LOGGER.info("init window");
         this.renderIn(ChatMenu.class);
         this.renderIn(InGame.class);
         this.renderIn(PauseMenu.class);
     }
+
     @Override
     public void render() {
-        ImGui.begin("testing");
-        ImGui.text("test text");
-        ImGui.sliderInt("test int slider", test, 0, 100);
-        ImGui.end();
+        if (SHOW_WINDOW.get()) {
+            ImGui.begin("Example Window", SHOW_WINDOW);
+            ImGui.text("Hello!");
+            ImGui.sliderInt("test int slider", test, 0, 100);
+            ImGui.end();
+        } else {
+            ImGuiManager.INSTANCE.closeWindow(this);
+        }
     }
+
+    @Override
+    public void tick() { }
+
     @Override
     public void dispose() {
-        LOGGER.info("dispose window");
+        Constants.LOGGER.info("dispose window");
     }
 }
 ```

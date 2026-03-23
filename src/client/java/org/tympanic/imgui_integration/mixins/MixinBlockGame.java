@@ -1,7 +1,5 @@
 package org.tympanic.imgui_integration.mixins;
 
-import com.badlogic.gdx.utils.Logger;
-//import com.github.puzzle.game.engine.ClientGameLoader;
 import finalforeach.cosmicreach.BlockGame;
 import finalforeach.cosmicreach.gamestates.*;
 import org.spongepowered.asm.mixin.Mixin;
