@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'jigsaw-cosmic-reach'
+    id 'maven-publish'
 }
 
 group = p_group
@@ -61,4 +62,37 @@ processClientResources {
 wrapper {
     gradleVersion = "8.14"
     distributionType = Wrapper.DistributionType.ALL
+}
+
+build.dependsOn buildMergedJar
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            repositories {
+                mavenLocal()
+            }
+
+            groupId = p_group
+            artifactId = p_id
+
+            artifact source: buildMergedJar, extension: 'jar', classifier: null
+
+            pom {
+                name = p_name
+                description = p_desc
+
+                developers {
+                    developer {
+                        id = 'tympanic'
+                        name = 'Tympanicblock61'
+                    }
+                    developer {
+                        id = 'darkmattrmaestro'
+                        name = 'DarkMattrMaestro'
+                    }
+                }
+            }
+        }
+    }
 }
