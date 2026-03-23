@@ -5,15 +5,14 @@ buildscript {
             url "https://jitpack.io"
         }
         maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
+            name = "Puzzles Releases"
+            url = "https://maven.puzzleshq.dev/releases/"
         }
         mavenCentral()
         gradlePluginPortal()
     }
     dependencies {
-        classpath "com.github.johnrengelman:shadow:8.1.1"
-        classpath "com.github.PuzzlesHQ:jigsaw:$jigsaw_gradle_version"
+        classpath("dev.puzzleshq:jigsaw-suite:$puzzle_jigsaw_suite")
     }
 }
 

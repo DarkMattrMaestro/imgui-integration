@@ -1,6 +1,7 @@
 package org.tympanic.imgui_integration.mixins;
 
-import com.github.puzzle.game.engine.ClientGameLoader;
+//import com.github.puzzle.game.engine.ClientGameLoader;
+//import dev.puzzleshq.puzzleloader.cosmic.game.
 import finalforeach.cosmicreach.gamestates.GameState;
 import finalforeach.cosmicreach.gamestates.MainMenu;
 import finalforeach.cosmicreach.gamestates.PrealphaPreamble;
@@ -18,7 +19,7 @@ public class MixinGameState {
 
     @Inject(method = "create", at = @At(value = "TAIL"))
     public void create(CallbackInfo callbackInfo) {
-        if ((_this instanceof ClientGameLoader || _this instanceof PrealphaPreamble) && !ImGuiManager.INSTANCE.hasBeenInitialized) {
+        if ((/*_this instanceof ClientGameLoader || */ _this instanceof MainMenu ||_this instanceof PrealphaPreamble) && !ImGuiManager.INSTANCE.hasBeenInitialized) {
             ImGuiManager.INSTANCE.init();
         }
     }

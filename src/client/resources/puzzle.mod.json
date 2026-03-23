@@ -1,0 +1,35 @@
+{
+  "formatVersion": 3,
+  "id": "${p_id}",
+  "version": "${p_version}",
+  "display_name": "${p_name}",
+  "name": "${p_name}",
+  "description": "${p_desc}",
+  "authors": [
+    "Tympanicblock61",
+    "DarkMattrMaestro"
+  ],
+  "meta": {
+    "icon": "${p_id}:icons/icon.png"
+  },
+  "entrypoints": {
+    "client-init": [
+      "org.tympanic.imgui_integration.ClientInitializer"
+    ]
+  },
+  "depends": {
+    "cosmic-reach": ">=${cosmic_reach_version}",
+    "puzzle-loader-cosmic": ">=${puzzle_loader_cosmic_version}",
+    "puzzle-loader-core": ">=${puzzle_loader_core_version}"
+  },
+  "allowedSides": {
+    "client": true,
+    "server": false
+  },
+  "mixins": [
+    {
+      "config": "imgui_integration.mixins.json",
+      "environment": "client"
+    }
+  ]
+}
