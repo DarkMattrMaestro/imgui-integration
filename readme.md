@@ -4,7 +4,7 @@ Imgui Integration mod allows you to use imgui on any cosmic reach GameState
 
 ```java
 public class TestWindow extends ImGuiWindow {
-    public static final ImBoolean SHOW_WINDOW = new ImBoolean(true);
+    public final ImBoolean SHOW_WINDOW = new ImBoolean(true);
 
     int[] test = new int[1];
 
