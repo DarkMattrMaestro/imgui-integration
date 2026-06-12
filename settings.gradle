@@ -1,8 +1,8 @@
 buildscript {
     repositories {
         maven {
-            name "JitPack"
-            url "https://jitpack.io"
+            name = "JitPack"
+            url = "https://jitpack.io"
         }
         maven {
             name = "Puzzles Releases"

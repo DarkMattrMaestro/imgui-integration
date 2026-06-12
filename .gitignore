@@ -2,6 +2,7 @@
 
 runs/
 build/
+bin/
 
 .gradle/
 gradle/
