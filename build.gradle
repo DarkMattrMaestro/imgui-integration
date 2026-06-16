@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'jigsaw-cosmic-reach'
-    id 'maven-publish'
+    id "com.gradleup.shadow"
 }
 
 group = p_group
@@ -21,7 +21,9 @@ jigsawInject {
 
 repositories {
     mavenCentral()
-    mavenLocal()
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 dependencies {
@@ -30,14 +32,22 @@ dependencies {
 
     cosmicReach("finalforeach:cosmic-reach:${cosmic_reach_version}")
 
-    clientImplementation "io.github.spair:imgui-java-binding:${imgui_version}"
-    clientImplementation "io.github.spair:imgui-java-lwjgl3:${imgui_version}"
-    clientImplementation "io.github.spair:imgui-java-natives-linux:${imgui_version}"
-    clientImplementation "io.github.spair:imgui-java-natives-macos:${imgui_version}"
-    clientImplementation "io.github.spair:imgui-java-natives-windows:${imgui_version}"
+    clientImplementation("io.github.spair:imgui-java-binding:${imgui_version}")
+    clientImplementation("io.github.spair:imgui-java-lwjgl3:${imgui_version}")
+    clientImplementation("io.github.spair:imgui-java-natives-linux:${imgui_version}")
+    clientImplementation("io.github.spair:imgui-java-natives-macos:${imgui_version}")
+    clientImplementation("io.github.spair:imgui-java-natives-windows:${imgui_version}")
+
+    shadow("io.github.spair:imgui-java-binding:${imgui_version}")
+    shadow("io.github.spair:imgui-java-lwjgl3:${imgui_version}")
+    shadow("io.github.spair:imgui-java-natives-linux:${imgui_version}")
+    shadow("io.github.spair:imgui-java-natives-macos:${imgui_version}")
+    shadow("io.github.spair:imgui-java-natives-windows:${imgui_version}")
 }
 
 processClientResources {
+    def resourceTargets = [ "puzzle.mod.json" ]
+
     def projectProperties = [
             "p_name": p_name,
             "p_version": ((String)version).contains(".") ? version : "0.0.0",
@@ -54,45 +64,22 @@ processClientResources {
 
     inputs.properties projectProperties
 
-    filesMatching(["puzzle.mod.json"]) {
+    filesMatching(resourceTargets) {
         expand projectProperties
     }
+}
+
+tasks.shadowJar {
+    from sourceSets.client.output
+    configurations = [project.configurations.shadow]
+    archiveBaseName = project.name +"-"+project.cosmic_reach_version
+    archiveVersion = version
+    archiveClassifier = ''
+    exclude 'META-INF/*/*/**'
+    mergeServiceFiles()
 }
 
 wrapper {
     gradleVersion = "8.14"
     distributionType = Wrapper.DistributionType.ALL
-}
-
-build.dependsOn buildMergedJar
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            repositories {
-                mavenLocal()
-            }
-
-            groupId = p_group
-            artifactId = p_id
-
-            artifact source: buildMergedJar, extension: 'jar', classifier: null
-
-            pom {
-                name = p_name
-                description = p_desc
-
-                developers {
-                    developer {
-                        id = 'tympanic'
-                        name = 'Tympanicblock61'
-                    }
-                    developer {
-                        id = 'darkmattrmaestro'
-                        name = 'DarkMattrMaestro'
-                    }
-                }
-            }
-        }
-    }
 }
