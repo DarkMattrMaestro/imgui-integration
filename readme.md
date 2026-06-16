@@ -1,4 +1,4 @@
-Imgui Integration mod allows you to use imgui on any cosmic reach GameState
+The Imgui Integration mod allows you to use Dear Imgui on any Cosmic Reach GameState.
 
 ## Usage
 
@@ -42,3 +42,18 @@ public class TestWindow extends ImGuiWindow {
 ImGuiManager.INSTANCE.windows.add(new TestWindow());
 ```
 
+## Testing & Building
+
+Run the `gradle cleanOldJigsawLocal` and `gradle cleanOldJigsawGlobal` tasks to remove outdated Jigsaw directories from the local
+and global environments.
+
+Run the `gradle transformJars` task to update the game jars.
+
+### Testing
+
+Run `./gradlew runModdedClient` (optionally with `--warning-mode all`) to test the client and
+`./gradlew runModdedServer` to test the server.
+
+### Building
+
+Run `./gradlew shadowJar` (optionally with the `--info` flag) to build the `jar`.
