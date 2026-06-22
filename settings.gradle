@@ -12,7 +12,6 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath "com.gradleup.shadow:shadow-gradle-plugin:8.3.8"
         classpath("dev.puzzleshq:jigsaw-suite:$puzzle_jigsaw_suite")
     }
 }

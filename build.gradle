@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'jigsaw-cosmic-reach'
-    id "com.gradleup.shadow"
 }
 
 group = p_group
@@ -32,17 +31,11 @@ dependencies {
 
     cosmicReach("finalforeach:cosmic-reach:${cosmic_reach_version}")
 
-    clientImplementation("io.github.spair:imgui-java-binding:${imgui_version}")
-    clientImplementation("io.github.spair:imgui-java-lwjgl3:${imgui_version}")
-    clientImplementation("io.github.spair:imgui-java-natives-linux:${imgui_version}")
-    clientImplementation("io.github.spair:imgui-java-natives-macos:${imgui_version}")
-    clientImplementation("io.github.spair:imgui-java-natives-windows:${imgui_version}")
-
-    shadow("io.github.spair:imgui-java-binding:${imgui_version}")
-    shadow("io.github.spair:imgui-java-lwjgl3:${imgui_version}")
-    shadow("io.github.spair:imgui-java-natives-linux:${imgui_version}")
-    shadow("io.github.spair:imgui-java-natives-macos:${imgui_version}")
-    shadow("io.github.spair:imgui-java-natives-windows:${imgui_version}")
+    clientBundle clientImplementation("io.github.spair:imgui-java-binding:${imgui_version}")
+    clientBundle clientImplementation("io.github.spair:imgui-java-lwjgl3:${imgui_version}")
+    clientBundle clientImplementation("io.github.spair:imgui-java-natives-linux:${imgui_version}")
+    clientBundle clientImplementation("io.github.spair:imgui-java-natives-macos:${imgui_version}")
+    clientBundle clientImplementation("io.github.spair:imgui-java-natives-windows:${imgui_version}")
 }
 
 processClientResources {
@@ -69,14 +62,10 @@ processClientResources {
     }
 }
 
-tasks.shadowJar {
-    from sourceSets.client.output
-    configurations = [project.configurations.shadow]
-    archiveBaseName = project.name +"-"+project.cosmic_reach_version
+tasks.buildMergedJar {
+    archiveBaseName = project.name + "-" + project.cosmic_reach_version.replace("-alpha", "")
     archiveVersion = version
     archiveClassifier = ''
-    exclude 'META-INF/*/*/**'
-    mergeServiceFiles()
 }
 
 wrapper {
