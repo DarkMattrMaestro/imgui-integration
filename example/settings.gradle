@@ -1,0 +1,19 @@
+buildscript {
+    repositories {
+        maven {
+            name = "JitPack"
+            url = "https://jitpack.io"
+        }
+        maven {
+            name = "Puzzles Releases"
+            url = "https://maven.puzzleshq.dev/releases/"
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("dev.puzzleshq:jigsaw-suite:$puzzle_jigsaw_suite")
+    }
+}
+
+rootProject.name = 'Imgui Example'
