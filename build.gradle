@@ -22,7 +22,7 @@ jigsawInject {
 repositories {
     mavenCentral()
     maven {
-        url "https://jitpack.io"
+        url = "https://jitpack.io"
     }
 }
 
@@ -31,6 +31,15 @@ dependencies {
     puzzleLoader "dev.puzzleshq:puzzle-loader-cosmic:$puzzle_loader_cosmic_version"
 
     cosmicReach("finalforeach:cosmic-reach:${cosmic_reach_version}")
+
+//    clientBundle platform("org.lwjgl:lwjgl-bom:${lwjgl_version}")
+
+    ['', '-opengl', '-glfw'].each {
+        clientBundle clientImplementation("org.lwjgl:lwjgl$it:$lwjgl_version")
+        clientBundle clientImplementation("org.lwjgl:lwjgl$it::natives-linux")
+        clientBundle clientImplementation("org.lwjgl:lwjgl$it::natives-macos")
+        clientBundle clientImplementation("org.lwjgl:lwjgl$it::natives-windows")
+    }
 
     clientBundle clientImplementation("io.github.spair:imgui-java-binding:${imgui_version}")
     clientBundle clientImplementation("io.github.spair:imgui-java-lwjgl3:${imgui_version}")
@@ -83,9 +92,9 @@ publishing {
                 mavenLocal()
             }
 
-            groupId = p_group
-            artifactId = p_id
-            version = version
+            groupId = 'com.github.DarkMattrMaestro'
+            artifactId = 'imgui-integration'
+            version = project.cosmic_reach_version.replace("-alpha", "") + '-' + version
 
             artifact source: buildMergedJar
 

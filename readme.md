@@ -2,6 +2,8 @@ The Imgui Integration mod allows you to use Dear Imgui on any Cosmic Reach GameS
 
 ## Usage
 
+See the [example mod](example/readme.md)
+
 ```java
 public class TestWindow extends ImGuiWindow {
     public final ImBoolean SHOW_WINDOW = new ImBoolean(true);
@@ -54,6 +56,10 @@ Run the `gradle transformJars` task to update the game jars.
 Run `./gradlew runModdedClient` (optionally with `--warning-mode all`) to test the client and
 `./gradlew runModdedServer` to test the server.
 
+Run the `./gradlew -p example runModdedClient --warning-mode all` task to run the example mod.
+
 ### Building
 
-Run `./gradlew shadowJar` (optionally with the `--info` flag) to build the `jar`.
+Run `./gradlew clean -Pgroup='com.github.DarkMattrMaestro' -xtest assemble publishToMavenLocal --console=plain --info`
+to build the `jar` and publish it to MavenLocal. This is similar to the command used by Jitpack. To only build the `jar`
+without publishing it locally, run `./gradlew buildMergedJar`.
