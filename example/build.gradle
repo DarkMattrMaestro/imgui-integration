@@ -32,12 +32,7 @@ dependencies {
 
     cosmicReach("finalforeach:cosmic-reach:${cosmic_reach_version}")
 
-//    clientImplementation("com.github.DarkMattrMaestro:imgui-integration:fbf2f4c511")
     clientImplementation("com.github.DarkMattrMaestro:imgui-integration:${imgui_integration_version}")
-
-//    mod file("../build/libs")
-
-//    clientImplementation("io.github.spair:imgui-java-binding:${imgui_version}")
 }
 
 processClientResources {
