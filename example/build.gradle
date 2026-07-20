@@ -10,14 +10,6 @@ jigsawGame {
     splitSourceSets()
 }
 
-jigsawAccess {
-//    addManipulators(file("$projectDir/src/common/resources/${p_id}.manipulator"))
-}
-
-jigsawInject {
-    setModJson(file("$projectDir/src/client/resources/puzzle.mod.json"))
-}
-
 repositories {
     mavenCentral()
     mavenLocal()
